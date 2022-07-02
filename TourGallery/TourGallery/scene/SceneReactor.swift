@@ -10,7 +10,6 @@ import ReactorKit
 final class SceneReactor: Reactor {
     var initialState = State()
     
-    
     enum Action {
         case didInit
     }
@@ -22,6 +21,4 @@ final class SceneReactor: Reactor {
     struct State {
         var hasNetworkChecking: Bool?
     }
-    
-    
 }

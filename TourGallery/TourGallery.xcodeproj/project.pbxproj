@@ -10,6 +10,13 @@
 		0EFBDE4E495DEC6967498E78 /* Pods_TourGallery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961F8B87F4AEFB48A1B00107 /* Pods_TourGallery.framework */; };
 		723FB2A7286C92310078D16D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723FB2A6286C92310078D16D /* NetworkMonitor.swift */; };
 		723FB2AA286C98600078D16D /* SceneReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723FB2A9286C98600078D16D /* SceneReactor.swift */; };
+		72577606286D66130088A722 /* TourAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72577605286D66130088A722 /* TourAPI.swift */; };
+		7257760B286D84200088A722 /* TourServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7257760A286D84200088A722 /* TourServiceTest.swift */; };
+		7257760D286D85730088A722 /* TourService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7257760C286D85730088A722 /* TourService.swift */; };
+		72577610286D8AD20088A722 /* TourServiceStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7257760F286D8AD20088A722 /* TourServiceStub.swift */; };
+		72577616286D9A9B0088A722 /* TourGalleryPhoto.json in Resources */ = {isa = PBXBuildFile; fileRef = 72577615286D9A9B0088A722 /* TourGalleryPhoto.json */; };
+		727FD02E2870390500768878 /* TourGalleryPhoto.json in Resources */ = {isa = PBXBuildFile; fileRef = 72577615286D9A9B0088A722 /* TourGalleryPhoto.json */; };
+		727FD03428703A4200768878 /* TourPhotoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727FD03328703A4200768878 /* TourPhotoDTO.swift */; };
 		72F46126286C447D009C98B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F46125286C447D009C98B3 /* AppDelegate.swift */; };
 		72F46128286C447D009C98B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F46127286C447D009C98B3 /* SceneDelegate.swift */; };
 		72F4612A286C447D009C98B3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F46129286C447D009C98B3 /* ViewController.swift */; };
@@ -45,6 +52,13 @@
 		5EBCB02B711C04907FFE2287 /* Pods_TourGalleryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourGalleryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		723FB2A6286C92310078D16D /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		723FB2A9286C98600078D16D /* SceneReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneReactor.swift; sourceTree = "<group>"; };
+		72577605286D66130088A722 /* TourAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourAPI.swift; sourceTree = "<group>"; };
+		72577607286D69110088A722 /* SecretAPIKey.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretAPIKey.xcconfig; sourceTree = "<group>"; };
+		7257760A286D84200088A722 /* TourServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourServiceTest.swift; sourceTree = "<group>"; };
+		7257760C286D85730088A722 /* TourService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourService.swift; sourceTree = "<group>"; };
+		7257760F286D8AD20088A722 /* TourServiceStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourServiceStub.swift; sourceTree = "<group>"; };
+		72577615286D9A9B0088A722 /* TourGalleryPhoto.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TourGalleryPhoto.json; sourceTree = "<group>"; };
+		727FD03328703A4200768878 /* TourPhotoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourPhotoDTO.swift; sourceTree = "<group>"; };
 		72F46122286C447D009C98B3 /* TourGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TourGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72F46125286C447D009C98B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		72F46127286C447D009C98B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +147,55 @@
 			path = scene;
 			sourceTree = "<group>";
 		};
+		72577604286D65840088A722 /* network */ = {
+			isa = PBXGroup;
+			children = (
+				723FB2A5286C92150078D16D /* network_state */,
+				72577605286D66130088A722 /* TourAPI.swift */,
+				7257760C286D85730088A722 /* TourService.swift */,
+			);
+			path = network;
+			sourceTree = "<group>";
+		};
+		72577608286D81DC0088A722 /* service_test */ = {
+			isa = PBXGroup;
+			children = (
+				7257760A286D84200088A722 /* TourServiceTest.swift */,
+			);
+			path = service_test;
+			sourceTree = "<group>";
+		};
+		7257760E286D8ABF0088A722 /* mock */ = {
+			isa = PBXGroup;
+			children = (
+				7257760F286D8AD20088A722 /* TourServiceStub.swift */,
+			);
+			path = mock;
+			sourceTree = "<group>";
+		};
+		72577611286D8C5E0088A722 /* resource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = resource;
+			sourceTree = "<group>";
+		};
+		727FD02F28703A0700768878 /* entity */ = {
+			isa = PBXGroup;
+			children = (
+				727FD03028703A0F00768878 /* dto */,
+			);
+			path = entity;
+			sourceTree = "<group>";
+		};
+		727FD03028703A0F00768878 /* dto */ = {
+			isa = PBXGroup;
+			children = (
+				727FD03328703A4200768878 /* TourPhotoDTO.swift */,
+			);
+			path = dto;
+			sourceTree = "<group>";
+		};
 		72F46119286C447D009C98B3 = {
 			isa = PBXGroup;
 			children = (
@@ -158,13 +221,17 @@
 		72F46124286C447D009C98B3 /* TourGallery */ = {
 			isa = PBXGroup;
 			children = (
+				727FD02F28703A0700768878 /* entity */,
+				72577615286D9A9B0088A722 /* TourGalleryPhoto.json */,
+				72F46133286C447F009C98B3 /* Info.plist */,
+				72577607286D69110088A722 /* SecretAPIKey.xcconfig */,
+				72577611286D8C5E0088A722 /* resource */,
+				72577604286D65840088A722 /* network */,
 				723FB2A8286C98550078D16D /* scene */,
-				723FB2A5286C92150078D16D /* network_state */,
 				72F46125286C447D009C98B3 /* AppDelegate.swift */,
 				72F46129286C447D009C98B3 /* ViewController.swift */,
 				72F4612E286C447F009C98B3 /* Assets.xcassets */,
 				72F46130286C447F009C98B3 /* LaunchScreen.storyboard */,
-				72F46133286C447F009C98B3 /* Info.plist */,
 			);
 			path = TourGallery;
 			sourceTree = "<group>";
@@ -172,6 +239,8 @@
 		72F4613B286C447F009C98B3 /* TourGalleryTests */ = {
 			isa = PBXGroup;
 			children = (
+				7257760E286D8ABF0088A722 /* mock */,
+				72577608286D81DC0088A722 /* service_test */,
 				72F4613C286C447F009C98B3 /* TourGalleryTests.swift */,
 			);
 			path = TourGalleryTests;
@@ -295,6 +364,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				727FD02E2870390500768878 /* TourGalleryPhoto.json in Resources */,
 				72F46132286C447F009C98B3 /* LaunchScreen.storyboard in Resources */,
 				72F4612F286C447F009C98B3 /* Assets.xcassets in Resources */,
 			);
@@ -304,6 +374,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72577616286D9A9B0088A722 /* TourGalleryPhoto.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,10 +495,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				727FD03428703A4200768878 /* TourPhotoDTO.swift in Sources */,
 				72F4612A286C447D009C98B3 /* ViewController.swift in Sources */,
 				723FB2A7286C92310078D16D /* NetworkMonitor.swift in Sources */,
 				72F46126286C447D009C98B3 /* AppDelegate.swift in Sources */,
+				7257760D286D85730088A722 /* TourService.swift in Sources */,
 				72F46128286C447D009C98B3 /* SceneDelegate.swift in Sources */,
+				72577606286D66130088A722 /* TourAPI.swift in Sources */,
 				723FB2AA286C98600078D16D /* SceneReactor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,7 +510,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7257760B286D84200088A722 /* TourServiceTest.swift in Sources */,
 				72F4613D286C447F009C98B3 /* TourGalleryTests.swift in Sources */,
+				72577610286D8AD20088A722 /* TourServiceStub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -478,6 +554,7 @@
 /* Begin XCBuildConfiguration section */
 		72F4614A286C447F009C98B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 72577607286D69110088A722 /* SecretAPIKey.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -539,6 +616,7 @@
 		};
 		72F4614B286C447F009C98B3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 72577607286D69110088A722 /* SecretAPIKey.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
