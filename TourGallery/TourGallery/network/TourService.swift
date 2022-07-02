@@ -13,7 +13,7 @@ protocol TourPhotoJsonFetchable {
     func photoJsonFetch(by photoSequence: Int) -> Observable<[PhotoInfo]>
 }
 
-final class TourService {
+final class TourService: TourPhotoJsonFetchable {
     var provider = MoyaProvider<TourAPI>()
     
     func photoJsonFetch(by photoSequence: Int) -> Observable<[PhotoInfo]> {

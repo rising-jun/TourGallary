@@ -46,7 +46,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
     }
 }
 
-extension SceneDelegate {
+private extension SceneDelegate {
     func setRootToSplash(_: Bool) {
         self.rootViewController = SplashViewController()
     }

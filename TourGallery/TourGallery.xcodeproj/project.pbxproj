@@ -19,6 +19,8 @@
 		727FD03428703A4200768878 /* TourPhotoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727FD03328703A4200768878 /* TourPhotoDTO.swift */; };
 		727FD03A28705A0400768878 /* SceneReactorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727FD03928705A0400768878 /* SceneReactorTest.swift */; };
 		727FD03C28705AC700768878 /* NetworkMonitorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727FD03B28705AC700768878 /* NetworkMonitorStub.swift */; };
+		727FD03E2870614D00768878 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727FD03D2870614D00768878 /* SplashView.swift */; };
+		727FD040287062D700768878 /* SplashReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727FD03F287062D700768878 /* SplashReactor.swift */; };
 		72F46126286C447D009C98B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F46125286C447D009C98B3 /* AppDelegate.swift */; };
 		72F46128286C447D009C98B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F46127286C447D009C98B3 /* SceneDelegate.swift */; };
 		72F4612A286C447D009C98B3 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F46129286C447D009C98B3 /* SplashViewController.swift */; };
@@ -63,6 +65,8 @@
 		727FD03328703A4200768878 /* TourPhotoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourPhotoDTO.swift; sourceTree = "<group>"; };
 		727FD03928705A0400768878 /* SceneReactorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneReactorTest.swift; sourceTree = "<group>"; };
 		727FD03B28705AC700768878 /* NetworkMonitorStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitorStub.swift; sourceTree = "<group>"; };
+		727FD03D2870614D00768878 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		727FD03F287062D700768878 /* SplashReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashReactor.swift; sourceTree = "<group>"; };
 		72F46122286C447D009C98B3 /* TourGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TourGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72F46125286C447D009C98B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		72F46127286C447D009C98B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -207,6 +211,8 @@
 			isa = PBXGroup;
 			children = (
 				72F46129286C447D009C98B3 /* SplashViewController.swift */,
+				727FD03D2870614D00768878 /* SplashView.swift */,
+				727FD03F287062D700768878 /* SplashReactor.swift */,
 			);
 			path = splash;
 			sourceTree = "<group>";
@@ -519,10 +525,12 @@
 			files = (
 				727FD03428703A4200768878 /* TourPhotoDTO.swift in Sources */,
 				72F4612A286C447D009C98B3 /* SplashViewController.swift in Sources */,
+				727FD03E2870614D00768878 /* SplashView.swift in Sources */,
 				723FB2A7286C92310078D16D /* NetworkMonitor.swift in Sources */,
 				72F46126286C447D009C98B3 /* AppDelegate.swift in Sources */,
 				7257760D286D85730088A722 /* TourService.swift in Sources */,
 				72F46128286C447D009C98B3 /* SceneDelegate.swift in Sources */,
+				727FD040287062D700768878 /* SplashReactor.swift in Sources */,
 				72577606286D66130088A722 /* TourAPI.swift in Sources */,
 				723FB2AA286C98600078D16D /* SceneReactor.swift in Sources */,
 			);
