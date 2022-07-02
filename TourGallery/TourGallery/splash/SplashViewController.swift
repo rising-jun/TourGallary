@@ -9,9 +9,8 @@ import UIKit
 import RxAppState
 
 final class SplashViewController: UIViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .blue
     }
 }

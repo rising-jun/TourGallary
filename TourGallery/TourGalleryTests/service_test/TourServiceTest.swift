@@ -19,11 +19,11 @@ final class TourServiceTest: XCTestCase {
 
     func test_requestFetchPhotoJson() throws {
         let expectation = XCTestExpectation()
-        guard let json = Bundle.main.path(forResource: "TourGalleryPhoto", ofType: "json") else { return }
-        guard let jsonString = try? String(contentsOfFile: json) else { return }
-        guard let mockData = jsonString.data(using: .utf8) else { return }
+        guard let json = Bundle.main.path(forResource: "TourGalleryPhoto", ofType: "json") else { return XCTFail() }
+        guard let jsonString = try? String(contentsOfFile: json) else { return XCTFail() }
+        guard let mockData = jsonString.data(using: .utf8) else { return XCTFail() }
         
-        guard let expectedCount = try? JSONDecoder().decode(Welcome.self, from: mockData).response.body.items.photoInfos.count else { return }
+        guard let expectedCount = try? JSONDecoder().decode(Welcome.self, from: mockData).response.body.items.photoInfos.count else { return XCTFail() }
         
         tourService.photoJsonFetch(by: 0).bind(onNext: { photoInfos in
             XCTAssertEqual(expectedCount, photoInfos.count)

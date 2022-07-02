@@ -9,6 +9,11 @@ import ReactorKit
 
 final class SceneReactor: Reactor {
     var initialState = State()
+    private let networkMonitoringable: NetworkMonitoringable
+    
+    init(networkMonitoringable: NetworkMonitoringable) {
+        self.networkMonitoringable = networkMonitoringable
+    }
     
     enum Action {
         case didInit
@@ -20,5 +25,22 @@ final class SceneReactor: Reactor {
     
     struct State {
         var hasNetworkChecking: Bool?
+    }
+    
+    func mutate(action: Action) -> Observable<Mutation> {
+        switch action {
+        case .didInit:
+            networkMonitoringable.startMonitoring()
+            return Observable.just(Mutation.startNetworkMonitor(true))
+        }
+    }
+    
+    func reduce(state: State, mutation: Mutation) -> State {
+        var newState = state
+        switch mutation {
+        case .startNetworkMonitor(let isStarted):
+            newState.hasNetworkChecking = isStarted
+        }
+        return newState
     }
 }
