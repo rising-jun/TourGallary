@@ -23,6 +23,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
+        let service = TourService()
+        service.photoJsonFetch(by: 0)
+            .bind { photoinfos in
+                print(photoinfos.count)
+            }
+            .disposed(by: disposeBag)
+        
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = SplashViewController()

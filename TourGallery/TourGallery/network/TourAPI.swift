@@ -9,7 +9,9 @@ import Moya
 
 enum TourAPI {
     private var serviceKey: String {
-        return Bundle.main.object(forInfoDictionaryKey: "serviceKey") as? String ?? ""
+        guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "serviceKey") as? String else { return "" }
+        guard let decodeKey = apiKey.removingPercentEncoding else { return "" }
+        return decodeKey
     }
     case fetchPhotoJson
 }
@@ -45,7 +47,7 @@ extension TourAPI: TargetType {
     var task: Task {
         switch self {
         case .fetchPhotoJson:
-            let params = ["serviceKey": serviceKey,
+            let params: [String: Any] = ["ServiceKey": serviceKey,
                           "pageNo": "1",
                           "numOfRows": "10",
                           "MobileOS": "ETC",
