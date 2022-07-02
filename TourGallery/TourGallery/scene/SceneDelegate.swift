@@ -7,32 +7,39 @@
 
 import UIKit
 import ReactorKit
+import RxRelay
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
     var window: UIWindow?
     
+    private let sceneInitRelay = PublishRelay<Void>()
+    private var rootViewController: UIViewController?
+    
     override init() {
         super.init()
-        self.reactor = SceneReactor()
+        self.reactor = SceneReactor(networkMonitoringable: NetworkMonitor())
+        sceneInitRelay.accept(())
     }
     var disposeBag = DisposeBag()
     
     func bind(reactor: SceneReactor) {
+        sceneInitRelay.map { Reactor.Action.didInit }
+        .bind(to: reactor.action)
+        .disposed(by: disposeBag)
         
+        reactor.state.map { $0.hasNetworkChecking }
+        .compactMap { $0 }
+        .filter { $0 }
+        .distinctUntilChanged()
+        .bind(onNext: setRootToSplash)
+        .disposed(by: disposeBag)
     }
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
-        let service = TourService()
-        service.photoJsonFetch(by: 0)
-            .bind { photoinfos in
-                print(photoinfos.count)
-            }
-            .disposed(by: disposeBag)
-        
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = SplashViewController()
+            window.rootViewController = rootViewController
             self.window = window
             window.makeKeyAndVisible()
         }
@@ -40,8 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
 }
 
 extension SceneDelegate {
-    func startNetworkingMonitor() {
-        let monitor = NetworkMonitor()
-        monitor.startMonitoring()
+    func setRootToSplash(_: Bool) {
+        self.rootViewController = SplashViewController()
     }
 }

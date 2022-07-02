@@ -8,11 +8,16 @@
 import Foundation
 import Network
 
-struct NetworkMonitor {
+protocol NetworkMonitoringable {
+    func startMonitoring()
+    func stopMonitoring()
+}
+
+struct NetworkMonitor: NetworkMonitoringable {
     private let monitor = NWPathMonitor()
     private let notificationCenter = NotificationCenter.default
     
-    public func startMonitoring() {
+    func startMonitoring() {
         var isConnected: Bool = false
         monitor.start(queue: DispatchQueue.global())
         monitor.pathUpdateHandler = { path in
@@ -21,7 +26,7 @@ struct NetworkMonitor {
         }
     }
     
-    public func stopMonitoring() {
+    func stopMonitoring() {
         monitor.cancel()
     }
 }
