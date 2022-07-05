@@ -43,11 +43,29 @@ final class SplashViewController: UIViewController, View {
         .distinctUntilChanged()
         .bind(onNext: bindView)
         .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.isStartAnimation }
+        .compactMap { $0 }
+        .distinctUntilChanged()
+        .bind(onNext: startAnimation)
+        .disposed(by: disposeBag)
     }
 }
 
 private extension SplashViewController {
     func bindView(_: Bool) {
         self.view = splashView
+    }
+    
+    func startAnimation(_: Bool) {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 1.5) {
+                self.splashView.imageView.snp.updateConstraints { make in
+                    make.trailing.equalToSuperview().offset(20)
+                    make.leading.equalToSuperview()
+                }
+                self.splashView.layoutIfNeeded()
+            }
+        }
     }
 }

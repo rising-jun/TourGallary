@@ -9,6 +9,14 @@ import SnapKit
 
 final class SplashView: UIView {
     
+    let imageView: UIImageView = {
+        let imageView = UIImageView()
+        guard let image = UIImage(named: "splash_image") else { return UIImageView() }
+        imageView.image = image
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
@@ -21,7 +29,11 @@ final class SplashView: UIView {
     }
     
     private func layout() {
-        
+        addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.top.bottom.trailing.equalToSuperview()
+            make.leading.equalToSuperview().offset(-20)
+        }
     }
     
     private func attribute() {

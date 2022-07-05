@@ -10,6 +10,7 @@ import ReactorKit
 final class SplashReactor: Reactor {
     var initialState: State = State()
     private let galleryRepository: TourPhotoJsonFetchable
+    private let imageService = ImageService()
     
     init(galleryRepository: TourPhotoJsonFetchable) {
         self.galleryRepository = galleryRepository
@@ -23,20 +24,44 @@ final class SplashReactor: Reactor {
     enum Mutation {
         case loadView(Bool)
         case startAnimation(Bool)
-        case fetchPhotoJson([PhotoInfo])
+        case fetchPhotoJson([PhotoInfoEntity])
+        case fetchFirstPhoto(Data?, NetworkError?)
     }
     
     struct State {
         var isLoadView: Bool?
         var isStartAnimation: Bool?
+        var photoInfos: [PhotoInfoEntity]?
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .viewDidLoad:
+            let photoInfoEntities = galleryRepository
+                .photoJsonFetch(by: 0)
+                .map { $0 }
+                .share()
+            
+            let twoPhotos = photoInfoEntities
+                .map { $0.first }
+                .compactMap { $0?.galWebImageURL }
+                .flatMap { self.imageService.requestImage(from: $0) }
+                .map({ result -> Mutation in
+                    switch result {
+                    case .success(let data):
+                        return Mutation.fetchFirstPhoto(data, nil)
+                    case .failure(let error):
+                        return Mutation.fetchFirstPhoto(nil, error)
+                    }
+                })
+                .share()
+            
             return Observable.concat([
                 Observable.just(Mutation.loadView(true)),
-                galleryRepository.photoJsonFetch(by: 0).map { Mutation.fetchPhotoJson($0) }])
+                photoInfoEntities.map { Mutation.fetchPhotoJson($0) },
+                twoPhotos
+            ])
+            
         case .viewWillAppear:
             return Observable.just(Mutation.startAnimation(true))
         }
@@ -50,8 +75,10 @@ final class SplashReactor: Reactor {
         case .startAnimation(let isStarted):
             newState.isStartAnimation = isStarted
         case .fetchPhotoJson(let photos):
-            print(photos.count)
-            return newState
+            newState.photoInfos = photos
+        case .fetchFirstPhoto(let data, let error):
+            newState.photoInfos?.first?.setGalImage(imageData: data)
+            newState.photoInfos?.first?.setError(error: error)
         }
         return newState
     }

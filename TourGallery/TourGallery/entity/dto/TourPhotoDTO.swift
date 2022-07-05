@@ -48,9 +48,43 @@ struct PhotoInfo: Codable {
         case galCreatedtime, galModifiedtime, galPhotographer, galPhotographyLocation, galPhotographyMonth, galSearchKeyword, galTitle, galViewCount
         case galWebImageURL = "galWebImageUrl"
     }
+    
+    func convertPhotoInfo() -> PhotoInfoEntity {
+        return PhotoInfoEntity(photoInfo: self)
+    }
+}
+
+final class PhotoInfoEntity {
+    var galContentID, galCreatedtime: Int
+    let galPhotographer, galPhotographyLocation: String
+    let galPhotographyMonth: Int?
+    let galSearchKeyword, galTitle: String?
+    let galWebImageURL: String?
+    private(set) var galleryImage: Data?
+    private(set) var errorState: NetworkError?
+    
+    init(photoInfo: PhotoInfo) {
+        galContentID = photoInfo.galContentID
+        galCreatedtime = photoInfo.galCreatedtime
+        galPhotographyLocation = photoInfo.galPhotographyLocation
+        galPhotographyMonth = photoInfo.galPhotographyMonth
+        galPhotographer = photoInfo.galPhotographer
+        galSearchKeyword = photoInfo.galSearchKeyword
+        galTitle = photoInfo.galTitle
+        galWebImageURL = photoInfo.galWebImageURL
+    }
+    
+    func setGalImage(imageData: Data?) {
+        galleryImage = imageData
+    }
+    
+    func setError(error: NetworkError?) {
+        errorState = error
+    }
 }
 
 // MARK: - Header
 struct Header: Codable {
     let resultCode, resultMsg: String
 }
+
