@@ -9,8 +9,9 @@ import ReactorKit
 
 final class SplashReactor: Reactor {
     var initialState: State = State()
-    private let galleryRepository: TourPhotoJsonFetchable
+    private var galleryRepository: TourPhotoJsonFetchable
     private let imageService = ImageService()
+    private var photoInfos: [PhotoInfoEntity]?
     
     init(galleryRepository: TourPhotoJsonFetchable) {
         self.galleryRepository = galleryRepository
@@ -19,6 +20,7 @@ final class SplashReactor: Reactor {
     enum Action {
         case viewDidLoad
         case viewWillAppear
+        case doneAnimation(Bool)
     }
     
     enum Mutation {
@@ -26,12 +28,14 @@ final class SplashReactor: Reactor {
         case startAnimation(Bool)
         case fetchPhotoJson([PhotoInfoEntity])
         case fetchFirstPhoto(Data?, NetworkError?)
+        case hasReadyToPresent(Bool)
     }
     
     struct State {
         var isLoadView: Bool?
         var isStartAnimation: Bool?
-        var photoInfos: [PhotoInfoEntity]?
+        var isReadyToPresent: Bool?
+        var galleryReactor: GalleryReactor?
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -39,12 +43,10 @@ final class SplashReactor: Reactor {
         case .viewDidLoad:
             let photoInfoEntities = galleryRepository
                 .photoJsonFetch(by: 0)
-                .map { $0 }
                 .share()
             
-            let twoPhotos = photoInfoEntities
-                .map { $0.first }
-                .compactMap { $0?.galWebImageURL }
+            let fetchPhotos = photoInfoEntities
+                .compactMap { $0.first?.galWebImageURL }
                 .flatMap { self.imageService.requestImage(from: $0) }
                 .map({ result -> Mutation in
                     switch result {
@@ -59,11 +61,13 @@ final class SplashReactor: Reactor {
             return Observable.concat([
                 Observable.just(Mutation.loadView(true)),
                 photoInfoEntities.map { Mutation.fetchPhotoJson($0) },
-                twoPhotos
+                fetchPhotos
             ])
             
         case .viewWillAppear:
             return Observable.just(Mutation.startAnimation(true))
+        case .doneAnimation(let isDone):
+            return Observable.just(Mutation.hasReadyToPresent(isDone))
         }
     }
     
@@ -75,10 +79,16 @@ final class SplashReactor: Reactor {
         case .startAnimation(let isStarted):
             newState.isStartAnimation = isStarted
         case .fetchPhotoJson(let photos):
-            newState.photoInfos = photos
+            photoInfos = photos
         case .fetchFirstPhoto(let data, let error):
-            newState.photoInfos?.first?.setGalImage(imageData: data)
-            newState.photoInfos?.first?.setError(error: error)
+            photoInfos?.first?.setGalImage(imageData: data)
+            photoInfos?.first?.setError(error: error)
+            let galleryReactor = GalleryReactor()
+            guard let photoInfos = photoInfos else { return newState }
+            galleryReactor.setPhotoInfos(photoInfos: photoInfos)
+            newState.galleryReactor = galleryReactor
+        case .hasReadyToPresent(let isAnimationDone):
+            newState.isReadyToPresent = isAnimationDone
         }
         return newState
     }

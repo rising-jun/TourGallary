@@ -13,7 +13,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
     var window: UIWindow?
     
     private let sceneInitRelay = PublishRelay<Void>()
-    private var rootViewController: UIViewController?
     
     override init() {
         super.init()
@@ -31,7 +30,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
         .compactMap { $0 }
         .filter { $0 }
         .distinctUntilChanged()
-        .bind(onNext: setRootToSplash)
+        .bind(onNext: { [weak self] result in
+            guard let self = self else { return }
+            self.setRootToSplash(result)
+        })
+        //.bind(onNext: setRootToSplash)
         .disposed(by: disposeBag)
     }
     
@@ -39,7 +42,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
         guard let _ = (scene as? UIWindowScene) else { return }
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = rootViewController
             self.window = window
             window.makeKeyAndVisible()
         }
@@ -48,6 +50,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
 
 private extension SceneDelegate {
     func setRootToSplash(_: Bool) {
-        self.rootViewController = SplashViewController()
+        DispatchQueue.main.async {
+            self.window?.rootViewController = SplashViewController()
+        }
     }
 }

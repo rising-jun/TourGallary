@@ -8,7 +8,7 @@
 import Moya
 import RxSwift
 
-protocol TourPhotoJsonFetchable {
+protocol TourPhotoJsonFetchable: AnyObject {
     var provider: MoyaProvider<TourAPI> { get }
     func photoJsonFetch(by photoSequence: Int) -> Observable<[PhotoInfoEntity]>
 }

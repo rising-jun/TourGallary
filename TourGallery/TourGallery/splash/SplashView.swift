@@ -34,10 +34,10 @@ final class SplashView: UIView {
             make.top.bottom.trailing.equalToSuperview()
             make.leading.equalToSuperview().offset(-20)
         }
+        layoutIfNeeded()
     }
     
     private func attribute() {
         backgroundColor = .white
     }
-    
 }
