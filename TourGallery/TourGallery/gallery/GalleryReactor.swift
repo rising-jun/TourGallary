@@ -10,35 +10,41 @@ import ReactorKit
 final class GalleryReactor: Reactor {
     var initialState = State()
     private var photoInfos: [PhotoInfoEntity]?
+    private let imageManager = ImageService()
     
-    init() {
-        
-    }
+    init() { }
     
     enum Action {
-        case didInit
+        case viewDidLoad
+        case viewWillAppear
     }
     
     enum Mutation {
-        case startNetworkMonitor(Bool)
+        case loadView(Bool)
+        case loadPhotoInfo([PhotoInfoEntity]?)
     }
     
     struct State {
-        var hasNetworkChecking: Bool?
+        var isLoadView: Bool?
+        var photoInfos: [PhotoInfoEntity]?
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .didInit:
-            return Observable.just(Mutation.startNetworkMonitor(true))
+        case .viewDidLoad:
+            return Observable.just(Mutation.loadView(true))
+        case .viewWillAppear:
+            return Observable.just(Mutation.loadPhotoInfo(self.photoInfos))
         }
     }
     
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
-        case .startNetworkMonitor(let isStarted):
-            newState.hasNetworkChecking = isStarted
+        case .loadView(let isLoaded):
+            newState.isLoadView = isLoaded
+        case .loadPhotoInfo(let photoInfos):
+            newState.photoInfos = photoInfos
         }
         return newState
     }

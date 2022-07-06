@@ -12,6 +12,7 @@ final class SplashReactor: Reactor {
     private var galleryRepository: TourPhotoJsonFetchable
     private let imageService = ImageService()
     private var photoInfos: [PhotoInfoEntity]?
+    private lazy var galleryReactor = GalleryReactor()
     
     init(galleryRepository: TourPhotoJsonFetchable) {
         self.galleryRepository = galleryRepository
@@ -47,8 +48,10 @@ final class SplashReactor: Reactor {
             
             let fetchPhotos = photoInfoEntities
                 .compactMap { $0.first?.galWebImageURL }
-                .flatMap { self.imageService.requestImage(from: $0) }
-                .map({ result -> Mutation in
+                .flatMap { [unowned self] imageURL in
+                    self.imageService.requestImage(from: imageURL)
+                }
+                .map({  result -> Mutation in
                     switch result {
                     case .success(let data):
                         return Mutation.fetchFirstPhoto(data, nil)
@@ -80,10 +83,11 @@ final class SplashReactor: Reactor {
             newState.isStartAnimation = isStarted
         case .fetchPhotoJson(let photos):
             photoInfos = photos
+            galleryReactor.setPhotoInfos(photoInfos: photos)
+            newState.galleryReactor = galleryReactor
         case .fetchFirstPhoto(let data, let error):
             photoInfos?.first?.setGalImage(imageData: data)
             photoInfos?.first?.setError(error: error)
-            let galleryReactor = GalleryReactor()
             guard let photoInfos = photoInfos else { return newState }
             galleryReactor.setPhotoInfos(photoInfos: photoInfos)
             newState.galleryReactor = galleryReactor

@@ -97,7 +97,7 @@ private extension SplashViewController {
     
     func startAnimation(_: Bool) {
         DispatchQueue.main.async {
-            UIView.animate(withDuration: 2) {
+            UIView.animate(withDuration: 4) {
                 self.splashView.imageView.snp.updateConstraints { make in
                     make.trailing.equalToSuperview().offset(20)
                     make.leading.equalToSuperview()
@@ -121,7 +121,8 @@ private extension SplashViewController {
         }else {
             galleryViewController.reactor = GalleryReactor()
         }
-        DispatchQueue.main.async {  
+        
+        DispatchQueue.main.async {
             UIApplication.shared.windows.first?.rootViewController = galleryViewController
             self.dismiss(animated: true, completion: nil)
             self.present(galleryViewController, animated: true)

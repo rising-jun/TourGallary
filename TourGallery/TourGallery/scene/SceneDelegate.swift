@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
         self.reactor = SceneReactor(networkMonitoringable: NetworkMonitor())
         sceneInitRelay.accept(())
     }
+    
     var disposeBag = DisposeBag()
     
     func bind(reactor: SceneReactor) {
