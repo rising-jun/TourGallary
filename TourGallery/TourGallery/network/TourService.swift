@@ -8,15 +8,15 @@
 import Moya
 import RxSwift
 
-protocol TourPhotoJsonFetchable {
+protocol TourPhotoJsonFetchable: AnyObject {
     var provider: MoyaProvider<TourAPI> { get }
-    func photoJsonFetch(by photoSequence: Int) -> Observable<[PhotoInfo]>
+    func photoJsonFetch(by photoSequence: Int) -> Observable<[PhotoInfoEntity]>
 }
 
-final class TourService {
+final class TourService: TourPhotoJsonFetchable {
     var provider = MoyaProvider<TourAPI>()
     
-    func photoJsonFetch(by photoSequence: Int) -> Observable<[PhotoInfo]> {
+    func photoJsonFetch(by photoSequence: Int) -> Observable<[PhotoInfoEntity]> {
         provider.rx
             .request(.fetchPhotoJson)
             .filterSuccessfulStatusCodes()
@@ -24,5 +24,6 @@ final class TourService {
             .map(Welcome.self)
             .map { $0.response.body.items.photoInfos }
             .compactMap { $0 }
+            .map { $0.map { $0.convertPhotoInfo() } }
     }
 }
