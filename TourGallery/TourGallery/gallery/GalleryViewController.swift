@@ -34,11 +34,13 @@ final class GalleryViewController: UIViewController, View {
         
         reactor.state.map { $0.isLoadView }
         .compactMap { $0 }
+        .distinctUntilChanged()
         .bind(onNext: bindView)
         .disposed(by: disposeBag)
         
-        reactor.state.map { $0.photoInfos }
+        reactor.state.map { $0.photoList }
         .compactMap { $0 }
+        .do(onNext: { _ in print("hello~~~") })
         .bind(to: galleryView.collectionView.rx.items(cellIdentifier: GalleryCollectionCell.id, cellType: GalleryCollectionCell.self)) { index, entity, cell in
             if let image = entity.galleryImage {
                 cell.setImage(from: image)
@@ -50,6 +52,8 @@ final class GalleryViewController: UIViewController, View {
 }
 private extension GalleryViewController {
     func bindView(_: Bool) {
-        view = galleryView
+        //DispatchQueue.main.async {
+            self.view = self.galleryView
+        //}
     }
 }

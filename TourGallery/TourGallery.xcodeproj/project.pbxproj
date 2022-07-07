@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0EFBDE4E495DEC6967498E78 /* Pods_TourGallery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961F8B87F4AEFB48A1B00107 /* Pods_TourGallery.framework */; };
 		722B2F5028731575008F1A24 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722B2F4F28731575008F1A24 /* ImageService.swift */; };
+		72308A822876CCCD0059330B /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72308A812876CCCD0059330B /* LinkedList.swift */; };
 		723FB2A7286C92310078D16D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723FB2A6286C92310078D16D /* NetworkMonitor.swift */; };
 		723FB2AA286C98600078D16D /* SceneReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723FB2A9286C98600078D16D /* SceneReactor.swift */; };
 		72577606286D66130088A722 /* TourAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72577605286D66130088A722 /* TourAPI.swift */; };
@@ -61,6 +62,7 @@
 		4D2F1895804407F89F4EA65A /* Pods-TourGalleryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourGalleryTests.release.xcconfig"; path = "Target Support Files/Pods-TourGalleryTests/Pods-TourGalleryTests.release.xcconfig"; sourceTree = "<group>"; };
 		5EBCB02B711C04907FFE2287 /* Pods_TourGalleryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourGalleryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		722B2F4F28731575008F1A24 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		72308A812876CCCD0059330B /* LinkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
 		723FB2A6286C92310078D16D /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		723FB2A9286C98600078D16D /* SceneReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneReactor.swift; sourceTree = "<group>"; };
 		72577605286D66130088A722 /* TourAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourAPI.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				72B9A1192874259B0040C109 /* GalleryViewController.swift */,
 				72B9A11B287426000040C109 /* GalleryView.swift */,
 				7276179028756AAD009039AB /* GalleryCollectionCell.swift */,
+				72308A812876CCCD0059330B /* LinkedList.swift */,
 			);
 			path = gallery;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 				7276179128756AAD009039AB /* GalleryCollectionCell.swift in Sources */,
 				722B2F5028731575008F1A24 /* ImageService.swift in Sources */,
 				72577606286D66130088A722 /* TourAPI.swift in Sources */,
+				72308A822876CCCD0059330B /* LinkedList.swift in Sources */,
 				723FB2AA286C98600078D16D /* SceneReactor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

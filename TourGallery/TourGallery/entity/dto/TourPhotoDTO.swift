@@ -59,7 +59,7 @@ final class PhotoInfoEntity {
     let galPhotographer, galPhotographyLocation: String
     let galPhotographyMonth: Int?
     let galSearchKeyword, galTitle: String?
-    let galWebImageURL: String?
+    let galWebImageURL: String
     private(set) var galleryImage: Data?
     private(set) var errorState: NetworkError?
     
@@ -88,3 +88,14 @@ struct Header: Codable {
     let resultCode, resultMsg: String
 }
 
+extension Array {
+    func convertLinkedList() -> LinkedList<Element> {
+        let list = LinkedList<Element>()
+        for element in self {
+            let node = Node<Element>()
+            node.val = element
+            list.add(node: node)
+        }
+        return list
+    }
+}
