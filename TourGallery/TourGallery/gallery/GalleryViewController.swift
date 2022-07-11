@@ -9,11 +9,20 @@ import SnapKit
 import RxAppState
 import RxSwift
 import ReactorKit
+import RxDataSources
 
 final class GalleryViewController: UIViewController, View {
     lazy var galleryView = GalleryView(frame: view.frame)
     var disposeBag: DisposeBag = DisposeBag()
-    //let dataSource = RxCollectionViewSectionedReloadDataSource<GallerySection>
+    
+    let photoCelldataSource = RxCollectionViewSectionedReloadDataSource<SectionOfPhotoInfo>(
+        configureCell: { dataSource, collectionView, indexPath, item in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GalleryCollectionCell.id, for: indexPath) as? GalleryCollectionCell else { return UICollectionViewCell() }
+            if let image = item.galleryImage {
+                cell.setImage(from: image)
+            }
+            return cell
+        })
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -40,25 +49,10 @@ final class GalleryViewController: UIViewController, View {
         .disposed(by: disposeBag)
         
         reactor.state.map { $0.photoInfos }
-        .compactMap { $0 }
+        .compactMap { $0?.compactMap { $0 } }
         .filter { $0.count > 0 }
-        .do( onNext: { array in print("count!! \(array.count)") })
-        .bind(to: galleryView.collectionView.rx.items(cellIdentifier: GalleryCollectionCell.id, cellType: GalleryCollectionCell.self)) { index, entity, cell in
-            print("index \(index)")
-            if let image = entity?.galleryImage {
-                cell.setImage(from: image)
-            }
-        }
-        .disposed(by: disposeBag)
-        
-        reactor.state.map { $0.updatedIndex }
-        .compactMap { $0 }
-        .distinctUntilChanged()
-        .observe(on: MainScheduler.instance)
-        .bind { [weak self] index in
-            guard let self = self else { return }
-            self.reloadCollectionView(index: index)
-        }
+        .map { [SectionOfPhotoInfo(items: $0)] }
+        .bind(to: galleryView.collectionView.rx.items(dataSource: photoCelldataSource))
         .disposed(by: disposeBag)
     }
 }
@@ -66,11 +60,5 @@ final class GalleryViewController: UIViewController, View {
 private extension GalleryViewController {
     func bindView(_: Bool) {
         self.view = self.galleryView
-    }
-    
-    func reloadCollectionView(index: Int) {
-        //print("items count \(index) \(self.galleryView.collectionView.numberOfItems(inSection: 0))")
-        //self.galleryView.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
-        //self.galleryView.collectionView.reloadData()
     }
 }

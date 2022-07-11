@@ -41,17 +41,17 @@ final class GalleryReactor: Reactor {
                 return Observable.just(Mutation.loadPhotoInfo(nil))
             }
             
-            
             for (index, photoInfo) in photoInfos.enumerated() {
                 imageManager.requestImage(from: photoInfo.galWebImageURL)
-                    .map { [unowned self] result -> [Int: PhotoInfoEntity] in
+                    .map { result -> [Int: PhotoInfoEntity] in
+                        var photoInfo = photoInfos[index]
                         switch result {
                         case .success(let imageData):
-                            self.photoInfos?[index].setGalImage(imageData: imageData)
+                            photoInfo.setGalImage(imageData: imageData)
                         case .failure(let error):
-                            self.photoInfos?[index].setError(error: error)
+                            photoInfo.setError(error: error)
                         }
-                        return [index: photoInfos[index]]
+                        return [index: photoInfo]
                     }
                     .bind(to: photoRelay)
                     .disposed(by: disposeBag)
@@ -73,7 +73,6 @@ final class GalleryReactor: Reactor {
         case .fetchCompletePhotoInfo(let photoDicionary):
             guard let index = photoDicionary.keys.first else { return newState }
             guard let value = photoDicionary[index] else { return newState }
-            print("react")
             newState.photoInfos?[index] = value
             newState.updatedIndex = index
         }

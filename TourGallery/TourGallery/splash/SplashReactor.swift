@@ -28,7 +28,6 @@ final class SplashReactor: Reactor {
         case loadView(Bool)
         case startAnimation(Bool)
         case fetchPhotoJson([PhotoInfoEntity])
-        case fetchFirstPhoto(Data?, NetworkError?)
         case hasReadyToPresent(Bool)
     }
     
@@ -46,25 +45,9 @@ final class SplashReactor: Reactor {
                 .photoJsonFetch(by: 0)
                 .share()
             
-            let fetchPhotos = photoInfoEntities
-                .compactMap { $0.first?.galWebImageURL }
-                .flatMap { [unowned self] imageURL in
-                    self.imageService.requestImage(from: imageURL)
-                }
-                .map({  result -> Mutation in
-                    switch result {
-                    case .success(let data):
-                        return Mutation.fetchFirstPhoto(data, nil)
-                    case .failure(let error):
-                        return Mutation.fetchFirstPhoto(nil, error)
-                    }
-                })
-                .share()
-            
             return Observable.concat([
                 Observable.just(Mutation.loadView(true)),
-                photoInfoEntities.map { Mutation.fetchPhotoJson($0) },
-                fetchPhotos
+                photoInfoEntities.map { Mutation.fetchPhotoJson($0) }
             ])
             
         case .viewWillAppear:
@@ -84,12 +67,6 @@ final class SplashReactor: Reactor {
         case .fetchPhotoJson(let photos):
             photoInfos = photos
             galleryReactor.setPhotoInfos(photoInfos: photos)
-            newState.galleryReactor = galleryReactor
-        case .fetchFirstPhoto(let data, let error):
-            photoInfos?.first?.setGalImage(imageData: data)
-            photoInfos?.first?.setError(error: error)
-            guard let photoInfos = photoInfos else { return newState }
-            galleryReactor.setPhotoInfos(photoInfos: photoInfos)
             newState.galleryReactor = galleryReactor
         case .hasReadyToPresent(let isAnimationDone):
             newState.isReadyToPresent = isAnimationDone

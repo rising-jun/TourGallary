@@ -54,7 +54,7 @@ struct PhotoInfo: Codable {
     }
 }
 
-struct PhotoInfoEntity {
+struct PhotoInfoEntity: Equatable {
     
     var galContentID, galCreatedtime: Int
     let galPhotographer, galPhotographyLocation: String

@@ -20,4 +20,5 @@ target 'TourGallery' do
   pod 'RxAppState'
   pod 'SnapKit'
   pod 'Moya/RxSwift'
+  pod 'RxDataSources'
 end
