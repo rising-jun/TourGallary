@@ -54,7 +54,8 @@ struct PhotoInfo: Codable {
     }
 }
 
-final class PhotoInfoEntity {
+struct PhotoInfoEntity {
+    
     var galContentID, galCreatedtime: Int
     let galPhotographer, galPhotographyLocation: String
     let galPhotographyMonth: Int?
@@ -74,11 +75,11 @@ final class PhotoInfoEntity {
         galWebImageURL = photoInfo.galWebImageURL
     }
     
-    func setGalImage(imageData: Data?) {
-        galleryImage = imageData
+    mutating func setGalImage(imageData: Data?) {
+         galleryImage = imageData
     }
     
-    func setError(error: NetworkError?) {
+    mutating func setError(error: NetworkError?) {
         errorState = error
     }
 }
@@ -86,16 +87,4 @@ final class PhotoInfoEntity {
 // MARK: - Header
 struct Header: Codable {
     let resultCode, resultMsg: String
-}
-
-extension Array {
-    func convertLinkedList() -> LinkedList<Element> {
-        let list = LinkedList<Element>()
-        for element in self {
-            let node = Node<Element>()
-            node.val = element
-            list.add(node: node)
-        }
-        return list
-    }
 }

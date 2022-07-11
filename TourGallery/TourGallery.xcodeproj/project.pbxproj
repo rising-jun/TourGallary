@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0EFBDE4E495DEC6967498E78 /* Pods_TourGallery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961F8B87F4AEFB48A1B00107 /* Pods_TourGallery.framework */; };
 		722B2F5028731575008F1A24 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722B2F4F28731575008F1A24 /* ImageService.swift */; };
-		72308A822876CCCD0059330B /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72308A812876CCCD0059330B /* LinkedList.swift */; };
 		723FB2A7286C92310078D16D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723FB2A6286C92310078D16D /* NetworkMonitor.swift */; };
 		723FB2AA286C98600078D16D /* SceneReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723FB2A9286C98600078D16D /* SceneReactor.swift */; };
 		72577606286D66130088A722 /* TourAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72577605286D66130088A722 /* TourAPI.swift */; };
@@ -19,7 +18,6 @@
 		72577616286D9A9B0088A722 /* TourGalleryPhoto.json in Resources */ = {isa = PBXBuildFile; fileRef = 72577615286D9A9B0088A722 /* TourGalleryPhoto.json */; };
 		7276179128756AAD009039AB /* GalleryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7276179028756AAD009039AB /* GalleryCollectionCell.swift */; };
 		7276179428756DB4009039AB /* extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7276179328756DB4009039AB /* extension+UIView.swift */; };
-		727FD02E2870390500768878 /* TourGalleryPhoto.json in Resources */ = {isa = PBXBuildFile; fileRef = 72577615286D9A9B0088A722 /* TourGalleryPhoto.json */; };
 		727FD03428703A4200768878 /* TourPhotoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727FD03328703A4200768878 /* TourPhotoDTO.swift */; };
 		727FD03A28705A0400768878 /* SceneReactorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727FD03928705A0400768878 /* SceneReactorTest.swift */; };
 		727FD03C28705AC700768878 /* NetworkMonitorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727FD03B28705AC700768878 /* NetworkMonitorStub.swift */; };
@@ -62,7 +60,6 @@
 		4D2F1895804407F89F4EA65A /* Pods-TourGalleryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TourGalleryTests.release.xcconfig"; path = "Target Support Files/Pods-TourGalleryTests/Pods-TourGalleryTests.release.xcconfig"; sourceTree = "<group>"; };
 		5EBCB02B711C04907FFE2287 /* Pods_TourGalleryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TourGalleryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		722B2F4F28731575008F1A24 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
-		72308A812876CCCD0059330B /* LinkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
 		723FB2A6286C92310078D16D /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		723FB2A9286C98600078D16D /* SceneReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneReactor.swift; sourceTree = "<group>"; };
 		72577605286D66130088A722 /* TourAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourAPI.swift; sourceTree = "<group>"; };
@@ -200,7 +197,6 @@
 		72577611286D8C5E0088A722 /* resource */ = {
 			isa = PBXGroup;
 			children = (
-				72577615286D9A9B0088A722 /* TourGalleryPhoto.json */,
 				72577607286D69110088A722 /* SecretAPIKey.xcconfig */,
 			);
 			path = resource;
@@ -255,7 +251,6 @@
 				72B9A1192874259B0040C109 /* GalleryViewController.swift */,
 				72B9A11B287426000040C109 /* GalleryView.swift */,
 				7276179028756AAD009039AB /* GalleryCollectionCell.swift */,
-				72308A812876CCCD0059330B /* LinkedList.swift */,
 			);
 			path = gallery;
 			sourceTree = "<group>";
@@ -303,6 +298,7 @@
 		72F4613B286C447F009C98B3 /* TourGalleryTests */ = {
 			isa = PBXGroup;
 			children = (
+				72577615286D9A9B0088A722 /* TourGalleryPhoto.json */,
 				7257760E286D8ABF0088A722 /* mock */,
 				727FD038287059B800768878 /* reactor_test */,
 				72577608286D81DC0088A722 /* service_test */,
@@ -429,7 +425,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				727FD02E2870390500768878 /* TourGalleryPhoto.json in Resources */,
 				72F46132286C447F009C98B3 /* LaunchScreen.storyboard in Resources */,
 				72F4612F286C447F009C98B3 /* Assets.xcassets in Resources */,
 			);
@@ -575,7 +570,6 @@
 				7276179128756AAD009039AB /* GalleryCollectionCell.swift in Sources */,
 				722B2F5028731575008F1A24 /* ImageService.swift in Sources */,
 				72577606286D66130088A722 /* TourAPI.swift in Sources */,
-				72308A822876CCCD0059330B /* LinkedList.swift in Sources */,
 				723FB2AA286C98600078D16D /* SceneReactor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

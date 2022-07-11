@@ -13,6 +13,7 @@ import ReactorKit
 final class GalleryViewController: UIViewController, View {
     lazy var galleryView = GalleryView(frame: view.frame)
     var disposeBag: DisposeBag = DisposeBag()
+    //let dataSource = RxCollectionViewSectionedReloadDataSource<GallerySection>
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -38,22 +39,38 @@ final class GalleryViewController: UIViewController, View {
         .bind(onNext: bindView)
         .disposed(by: disposeBag)
         
-        reactor.state.map { $0.photoList }
+        reactor.state.map { $0.photoInfos }
         .compactMap { $0 }
-        .do(onNext: { _ in print("hello~~~") })
+        .filter { $0.count > 0 }
+        .do( onNext: { array in print("count!! \(array.count)") })
         .bind(to: galleryView.collectionView.rx.items(cellIdentifier: GalleryCollectionCell.id, cellType: GalleryCollectionCell.self)) { index, entity, cell in
-            if let image = entity.galleryImage {
+            print("index \(index)")
+            if let image = entity?.galleryImage {
                 cell.setImage(from: image)
             }
-            print("image is nil")
+        }
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.updatedIndex }
+        .compactMap { $0 }
+        .distinctUntilChanged()
+        .observe(on: MainScheduler.instance)
+        .bind { [weak self] index in
+            guard let self = self else { return }
+            self.reloadCollectionView(index: index)
         }
         .disposed(by: disposeBag)
     }
 }
+
 private extension GalleryViewController {
     func bindView(_: Bool) {
-        //DispatchQueue.main.async {
-            self.view = self.galleryView
-        //}
+        self.view = self.galleryView
+    }
+    
+    func reloadCollectionView(index: Int) {
+        //print("items count \(index) \(self.galleryView.collectionView.numberOfItems(inSection: 0))")
+        //self.galleryView.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+        //self.galleryView.collectionView.reloadData()
     }
 }
